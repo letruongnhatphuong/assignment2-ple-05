@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>EMD // Troubleshooting Hub</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="phone-wrapper">
+
+        <div class="phone-status-bar">
+            <span id="status-time">09:41</span>
+            <div class="phone-status-icons">
+                <svg class="phone-status-icon" viewBox="0 0 24 24">
+                    <rect x="2" y="18" width="3" height="4" rx="1" />
+                    <rect x="7" y="14" width="3" height="8" rx="1" />
+                    <rect x="12" y="10" width="3" height="12" rx="1" />
+                    <rect x="17" y="5" width="3" height="17" rx="1" />
+                </svg>
+                <svg class="phone-status-icon" viewBox="0 0 24 24">
+                    <rect x="2" y="6" width="17" height="12" rx="3" fill="none" stroke="currentColor"
+                        stroke-width="2" />
+                    <rect x="5" y="9" width="11" height="6" rx="1" />
+                    <path d="M21,10 L21,14" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                </svg>
+            </div>
+        </div>
+
+        <div class="app-container">
+
+            <div id="screen-dashboard" class="screen active">
+                <header class="app-header">
+                    <div class="app-logo-area" id="main-app-logo">
+                        <svg class="app-logo-icon" viewBox="0 0 24 24">
+                            <path d="M12 2L2 22h20L12 2zm0 3.99L19.53 19H4.47L12 5.99zM11 16h2v2h-2zm0-6h2v4h-2z" />
+                        </svg>
+                        <h1 class="app-title" id="main-app-title">EMD Troubleshooting</h1>
+                    </div>
+                </header>
+
+                <div class="view-content-wrapper">
+
+                    <div id="view-contacts" class="dashboard-view">
+                        <h2 class="screen-title">Specialist Directory</h2>
+                        <span class="screen-subtitle">On-call specialists & verified companies</span>
+                        <div class="contacts-wrapper" id="contacts-results-list"></div>
+                    </div>
+
+                    <div id="view-emergency" class="dashboard-view view-active">
+                        <div class="search-container">
+                            <input type="text" id="emergency-search"
+                                placeholder="Search emergency guides..."
+                                aria-label="Search emergency guides">
+                        </div>
+                        <h2 class="screen-title containment-header">Crisis Containment</h2>
+                        <span class="screen-subtitle">Select rapid-response damage limitation guide</span>
+
+                        <div class="emergency-dialer-panel">
+                            <h4 class="dialer-title">Dispatch Emergency Authorities</h4>
+                            <div class="dialer-grid">
+                                <a href="tel:911" class="btn-dial btn-fire">
+                                    <span class="dial-icon">🔥</span>
+                                    <span class="dial-label">Fire Dept</span>
+                                </a>
+                                <a href="tel:911" class="btn-dial btn-police">
+                                    <span class="dial-icon">🚓</span>
+                                    <span class="dial-label">Police</span>
+                                </a>
+                                <a href="tel:911" class="btn-dial btn-medical">
+                                    <span class="dial-icon">🚑</span>
+                                    <span class="dial-label">Ambulance</span>
+                                </a>
+                            </div>
+                        </div>
+
+                        <h4 class="emergency-section-divider">Immediate DIY Isolation Guides</h4>
+                        <div class="dashboard-grid" id="emergency-results-grid"></div>
+                    </div>
+
+                    <div id="view-lookup" class="dashboard-view">
+                        <div class="search-container">
+                            <input type="text" id="dashboard-search"
+                                placeholder="Search troubleshooting scenarios..."
+                                aria-label="Search troubleshooting scenarios">
+                        </div>
+                        <h2 class="screen-title">Categorized Directory</h2>
+                        <span class="screen-subtitle">Select lookup folder below</span>
+                        <div class="dashboard-grid" id="lookup-results-grid"></div>
+                    </div>
+
+                </div>
+
+                <nav class="bottom-nav">
+                    <button id="tab-contacts" class="nav-tab-btn" aria-label="Specialists Contacts">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                        </svg>
+                        Contacts<span id="tab-contacts-indicator" class="tab-active-indicator" style="display: none;"></span>
+                    </button>
+
+                    <button id="tab-emergency" class="nav-tab-btn-emergency tab-active" aria-label="🚨 Emergency Rapid Assistance">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M12 2L1 21h22L12 2zm0 3.99L19.53 19H4.47L12 5.99zM11 16h2v2h-2zm0-6h2v4h-2z" />
+                        </svg>
+                        <span id="tab-emergency-indicator" class="tab-emergency-active-indicator" style="display: none;"></span>
+                    </button>
+
+                    <button id="tab-lookup" class="nav-tab-btn" aria-label="Directory Directory">
+                        <svg viewBox="0 0 24 24">
+                            <path
+                                d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0-2-.9-2-2V4c0-1.1-.9-2-2-2zm0 14H8V4h12v12z" />
+                        </svg>
+                        Lookup<span id="tab-lookup-indicator" class="tab-active-indicator" style="display: none;"></span>
+                    </button>
+                </nav>
+            </div>
+
+            <div id="screen-detail" class="screen">
+                <header class="app-header">
+                    <button id="detail-back-button" class="btn-back">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" />
+                        </svg>Back
+                    </button>
+                    <span class="app-title">Action Guide</span>
+                </header>
+
+                <div class="scrollable-content">
+                    <span id="detail-badge" class="detail-category-badge">Plumbing</span>
+
+                    <h2 id="detail-title" class="screen-title" style="margin-top: 12px; margin-bottom: 4px;">Scenario
+                        Title</h2>
+                    <span id="detail-subtitle" class="screen-subtitle">Instructions checklist</span>
+
+                    <div class="detail-illustration-container">
+                        <svg id="detail-svg-icon" viewBox="0 0 24 24">
+                            <path
+                                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm0-4h-2V7h2v6z" />
+                        </svg>
+                    </div>
+
+                    <ul class="action-checklist" id="detail-checklist"></ul>
+                </div>
+
+                <div class="fixed-bottom-action">
+                    <button id="btn-complete-detail" class="btn-action" disabled>Complete Scenario</button>
+                </div>
+            </div>
+
+            <!-- Post-Emergency Completion Modal Overlay -->
+            <div id="emergency-complete-modal" class="modal-overlay" style="display: none;">
+                <div class="modal-card">
+                    <div class="modal-header">
+                        <span class="modal-icon">🚨</span>
+                        <h3 class="modal-title">Containment Complete</h3>
+                    </div>
+                    <div class="modal-body">
+                        <p>The emergency DIY containment steps are complete. However, professional inspection is highly recommended to prevent recurring hazards.</p>
+                        
+                        <div class="modal-actions-list">
+                            <!-- Authorities Quick Dial -->
+                            <div class="modal-action-section">
+                                <span class="action-section-title">Emergency Authorities</span>
+                                <div class="modal-dial-row">
+                                    <a href="tel:911" class="btn-modal-dial btn-fire">Fire</a>
+                                    <a href="tel:911" class="btn-modal-dial btn-police">Police</a>
+                                    <a href="tel:911" class="btn-modal-dial btn-medical">Medical</a>
+                                </div>
+                            </div>
+
+                            <!-- Specialist Contacts Shortcut -->
+                            <div class="modal-action-section">
+                                <span class="action-section-title">Verify with Local Partners</span>
+                                <button id="btn-modal-go-contacts" class="btn-action">
+                                    View Specialist Contacts
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="btn-modal-close" class="btn-modal-dismiss">Dismiss & Return</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
