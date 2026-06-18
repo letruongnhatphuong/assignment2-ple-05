@@ -312,6 +312,28 @@ function setupEventListeners() {
     document.getElementById('dashboard-search').addEventListener('input', filterLookupSearch);
     document.getElementById('emergency-search').addEventListener('input', filterEmergencySearch);
 
+    // No results button actions
+    document.getElementById('btn-clear-emergency').addEventListener('click', () => {
+        const input = document.getElementById('emergency-search');
+        if (input) {
+            input.value = '';
+            filterEmergencySearch();
+        }
+    });
+    document.getElementById('btn-contacts-emergency').addEventListener('click', () => {
+        switchDashboardTab('contacts');
+    });
+    document.getElementById('btn-clear-lookup').addEventListener('click', () => {
+        const input = document.getElementById('dashboard-search');
+        if (input) {
+            input.value = '';
+            filterLookupSearch();
+        }
+    });
+    document.getElementById('btn-contacts-lookup').addEventListener('click', () => {
+        switchDashboardTab('contacts');
+    });
+
     document.getElementById('tab-contacts').addEventListener('click', () => switchDashboardTab('contacts'));
     document.getElementById('tab-emergency').addEventListener('click', () => switchDashboardTab('emergency'));
     document.getElementById('tab-lookup').addEventListener('click', () => switchDashboardTab('lookup'));
@@ -584,6 +606,7 @@ function gridSelectorCleanPrefix(item) {
 function filterLookupSearch() {
     const query = document.getElementById('dashboard-search').value.toLowerCase().trim();
     const categories = ['plumbing', 'electrical', 'appliances', 'automotive', 'safety'];
+    let totalMatches = 0;
 
     categories.forEach(cat => {
         const accordion = document.getElementById(`accordion-${cat}`);
@@ -611,6 +634,8 @@ function filterLookupSearch() {
             }
         });
 
+        totalMatches += matchCount;
+
         if (query === '') {
             accordion.style.display = 'block';
             toggleAccordion(cat, false);
@@ -623,11 +648,25 @@ function filterLookupSearch() {
             }
         }
     });
+
+    const noResultsPanel = document.getElementById('no-results-lookup');
+    const lookupGrid = document.getElementById('lookup-results-grid');
+    const searchTermPlaceholder = document.getElementById('search-term-lookup');
+
+    if (totalMatches === 0 && query !== '') {
+        if (noResultsPanel) noResultsPanel.style.display = 'flex';
+        if (searchTermPlaceholder) searchTermPlaceholder.textContent = query;
+        if (lookupGrid) lookupGrid.style.display = 'none';
+    } else {
+        if (noResultsPanel) noResultsPanel.style.display = 'none';
+        if (lookupGrid) lookupGrid.style.display = '';
+    }
 }
 
 function filterEmergencySearch() {
     const query = document.getElementById('emergency-search').value.toLowerCase().trim();
     const cards = document.querySelectorAll('#emergency-results-grid .card');
+    let totalMatches = 0;
 
     cards.forEach(card => {
         const heading = card.querySelector('.card-heading').textContent.toLowerCase();
@@ -636,14 +675,29 @@ function filterEmergencySearch() {
 
         if (query === '') {
             card.style.display = 'flex';
+            totalMatches++;
         } else {
             if (heading.includes(query) || instruction.includes(query) || keywords.includes(query)) {
                 card.style.display = 'flex';
+                totalMatches++;
             } else {
                 card.style.display = 'none';
             }
         }
     });
+
+    const noResultsPanel = document.getElementById('no-results-emergency');
+    const emergencyGrid = document.getElementById('emergency-results-grid');
+    const searchTermPlaceholder = document.getElementById('search-term-emergency');
+
+    if (totalMatches === 0 && query !== '') {
+        if (noResultsPanel) noResultsPanel.style.display = 'flex';
+        if (searchTermPlaceholder) searchTermPlaceholder.textContent = query;
+        if (emergencyGrid) emergencyGrid.style.display = 'none';
+    } else {
+        if (noResultsPanel) noResultsPanel.style.display = 'none';
+        if (emergencyGrid) emergencyGrid.style.display = '';
+    }
 }
 
 function renderContacts() {

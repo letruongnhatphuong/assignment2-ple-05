@@ -1724,3 +1724,111 @@ h4 {
         grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
     }
 }
+
+/* NO RESULTS STATE STYLING */
+.no-results-panel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 36px 24px;
+    background-color: var(--color-canvas-card);
+    border: 2px dashed var(--color-slate-border);
+    border-radius: 12px;
+    text-align: center;
+    margin: 24px 0;
+    width: 100%;
+    box-sizing: border-box;
+    animation: fadeInUp var(--transition-speed) ease-out forwards;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.no-results-icon-container {
+    width: 48px;
+    height: 48px;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.no-results-icon-container svg {
+    width: 100%;
+    height: 100%;
+    stroke: var(--color-slate-light);
+}
+
+.no-results-panel h3 {
+    font-size: 15px;
+    font-weight: 800;
+    margin-bottom: 8px;
+    color: var(--color-slate-dark);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.no-results-panel p {
+    font-size: 13.5px;
+    color: var(--color-slate-light);
+    margin-bottom: 20px;
+    max-width: 340px;
+    line-height: 1.45;
+}
+
+.no-results-panel strong {
+    color: var(--color-slate-dark);
+    word-break: break-all;
+}
+
+.no-results-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    width: 100%;
+    flex-wrap: wrap;
+}
+
+.no-results-actions button {
+    padding: 10px 18px;
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all var(--transition-speed) ease;
+    letter-spacing: 0.5px;
+}
+
+.btn-clear-search {
+    background-color: transparent;
+    border: 2px solid var(--color-slate-border);
+    color: var(--color-slate-medium);
+}
+
+.btn-clear-search:hover {
+    border-color: var(--color-slate-dark);
+    color: var(--color-slate-dark);
+    background-color: rgba(0, 0, 0, 0.02);
+}
+
+.btn-nav-to-contacts {
+    background-color: var(--color-orange-primary);
+    border: 2px solid var(--color-orange-primary);
+    color: #FFFFFF;
+}
+
+.btn-nav-to-contacts:hover {
+    background-color: var(--color-orange-hover);
+    border-color: var(--color-orange-hover);
+    box-shadow: 0 0 8px var(--color-orange-glow);
+}
