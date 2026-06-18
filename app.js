@@ -346,14 +346,26 @@ function setupEventListeners() {
         });
     }
 
-    // Intercept emergency dial actions to simulate calling instead of launching the dialer
-    document.querySelectorAll('.btn-dial, .btn-modal-dial').forEach(btn => {
-        btn.addEventListener('click', (e) => {
+    // Intercept emergency dial and contact call actions to simulate calling instead of launching the dialer
+    document.addEventListener('click', (e) => {
+        const btn = e.target.closest('.btn-dial, .btn-modal-dial, .btn-contact-call');
+        if (btn) {
             e.preventDefault();
+            let authority = '';
             const labelSpan = btn.querySelector('.dial-label');
-            const authority = labelSpan ? labelSpan.textContent : btn.textContent.trim();
+            if (labelSpan) {
+                authority = labelSpan.textContent;
+            } else {
+                const contactCard = btn.closest('.contact-card');
+                const name = contactCard ? contactCard.querySelector('.contact-name')?.textContent : null;
+                if (name) {
+                    authority = name;
+                } else {
+                    authority = btn.textContent.replace(/Call/g, '').trim() || 'Emergency Authorities';
+                }
+            }
             alert(`Calling ${authority}...\n\n(This is a simulated call for prototype demonstration purposes.)`);
-        });
+        }
     });
 }
 
