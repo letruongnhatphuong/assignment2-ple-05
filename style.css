@@ -1708,6 +1708,7 @@ h4 {
         height: 8px;
         border-radius: 50%;
         background-color: #27ae60;
+        flex-shrink: 0;
     }
     
     .fallback-text {
