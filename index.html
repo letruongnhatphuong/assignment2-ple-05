@@ -32,7 +32,42 @@
 
         <div class="app-container">
 
-            <div id="screen-dashboard" class="screen active">
+            <!-- Left Sidebar Navigation for Tablet/Desktop -->
+            <div class="app-sidebar">
+                <div class="sidebar-brand">
+                    <svg class="app-logo-icon" viewBox="0 0 24 24">
+                        <path d="M12 2L2 22h20L12 2zm0 3.99L19.53 19H4.47L12 5.99zM11 16h2v2h-2zm0-6h2v4h-2z" />
+                    </svg>
+                    <span class="sidebar-logo-text">EMD Troubleshooting</span>
+                </div>
+                <div class="sidebar-nav">
+                    <button class="sidebar-tab-btn" data-tab="emergency">
+                        <span class="sidebar-tab-icon">🚨</span>
+                        <span class="sidebar-tab-label">Emergency Hub</span>
+                    </button>
+                    <button class="sidebar-tab-btn" data-tab="lookup">
+                        <span class="sidebar-tab-icon">🔍</span>
+                        <span class="sidebar-tab-label">Lookup Directory</span>
+                    </button>
+                    <button class="sidebar-tab-btn" data-tab="contacts">
+                        <span class="sidebar-tab-icon">👤</span>
+                        <span class="sidebar-tab-label">Specialists</span>
+                    </button>
+                </div>
+                <div class="sidebar-footer-metrics">
+                    <div class="metrics-card">
+                        <span class="metrics-title-label">Global Progress</span>
+                        <div id="metrics-title">Completed Guides: 0 / 100</div>
+                        <div class="sidebar-progress-bar">
+                            <div id="progress-bar-fill" style="width: 0%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Content Area -->
+            <div class="main-content">
+                <div id="screen-dashboard" class="screen active">
                 <header class="app-header">
                     <div class="app-logo-area" id="main-app-logo">
                         <svg class="app-logo-icon" viewBox="0 0 24 24">
@@ -52,25 +87,24 @@
 
                     <div id="view-emergency" class="dashboard-view view-active">
                         <div class="search-container">
-                            <input type="text" id="emergency-search"
-                                placeholder="Search emergency guides..."
+                            <input type="text" id="emergency-search" placeholder="Search emergency guides..."
                                 aria-label="Search emergency guides">
                         </div>
                         <h2 class="screen-title containment-header">Crisis Containment</h2>
                         <span class="screen-subtitle">Select rapid-response damage limitation guide</span>
 
-                        <div class="emergency-dialer-panel">
+                        <div class="emergency-dialer-panel mobile-dialer-only">
                             <h4 class="dialer-title">Dispatch Emergency Authorities</h4>
                             <div class="dialer-grid">
-                                <a href="tel:911" class="btn-dial btn-fire">
+                                <a href="tel:0000000000" class="btn-dial btn-fire">
                                     <span class="dial-icon">🔥</span>
                                     <span class="dial-label">Fire Dept</span>
                                 </a>
-                                <a href="tel:911" class="btn-dial btn-police">
+                                <a href="tel:0000000000" class="btn-dial btn-police">
                                     <span class="dial-icon">🚓</span>
                                     <span class="dial-label">Police</span>
                                 </a>
-                                <a href="tel:911" class="btn-dial btn-medical">
+                                <a href="tel:0000000000" class="btn-dial btn-medical">
                                     <span class="dial-icon">🚑</span>
                                     <span class="dial-label">Ambulance</span>
                                 </a>
@@ -83,8 +117,7 @@
 
                     <div id="view-lookup" class="dashboard-view">
                         <div class="search-container">
-                            <input type="text" id="dashboard-search"
-                                placeholder="Search troubleshooting scenarios..."
+                            <input type="text" id="dashboard-search" placeholder="Search troubleshooting scenarios..."
                                 aria-label="Search troubleshooting scenarios">
                         </div>
                         <h2 class="screen-title">Categorized Directory</h2>
@@ -97,16 +130,20 @@
                 <nav class="bottom-nav">
                     <button id="tab-contacts" class="nav-tab-btn" aria-label="Specialists Contacts">
                         <svg viewBox="0 0 24 24">
-                            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                            <path
+                                d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
                         </svg>
-                        Contacts<span id="tab-contacts-indicator" class="tab-active-indicator" style="display: none;"></span>
+                        Contacts<span id="tab-contacts-indicator" class="tab-active-indicator"
+                            style="display: none;"></span>
                     </button>
 
-                    <button id="tab-emergency" class="nav-tab-btn-emergency tab-active" aria-label="🚨 Emergency Rapid Assistance">
+                    <button id="tab-emergency" class="nav-tab-btn-emergency tab-active"
+                        aria-label="🚨 Emergency Rapid Assistance">
                         <svg viewBox="0 0 24 24">
                             <path d="M12 2L1 21h22L12 2zm0 3.99L19.53 19H4.47L12 5.99zM11 16h2v2h-2zm0-6h2v4h-2z" />
                         </svg>
-                        <span id="tab-emergency-indicator" class="tab-emergency-active-indicator" style="display: none;"></span>
+                        <span id="tab-emergency-indicator" class="tab-emergency-active-indicator"
+                            style="display: none;"></span>
                     </button>
 
                     <button id="tab-lookup" class="nav-tab-btn" aria-label="Directory Directory">
@@ -114,7 +151,8 @@
                             <path
                                 d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0-2-.9-2-2V4c0-1.1-.9-2-2-2zm0 14H8V4h12v12z" />
                         </svg>
-                        Lookup<span id="tab-lookup-indicator" class="tab-active-indicator" style="display: none;"></span>
+                        Lookup<span id="tab-lookup-indicator" class="tab-active-indicator"
+                            style="display: none;"></span>
                     </button>
                 </nav>
             </div>
@@ -130,24 +168,59 @@
                 </header>
 
                 <div class="scrollable-content">
-                    <span id="detail-badge" class="detail-category-badge">Plumbing</span>
+                    <div class="detail-split-layout">
+                        <!-- Left Info Pane -->
+                        <div class="detail-info-pane">
+                            <span id="detail-badge" class="detail-category-badge">Plumbing</span>
+                            <h2 id="detail-title" class="screen-title" style="margin-top: 12px; margin-bottom: 4px;">Scenario Title</h2>
+                            <span id="detail-subtitle" class="screen-subtitle">Instructions checklist</span>
+                            <div class="detail-illustration-container">
+                                <svg id="detail-svg-icon" viewBox="0 0 24 24">
+                                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm0-4h-2V7h2v6z" />
+                                </svg>
+                            </div>
+                        </div>
 
-                    <h2 id="detail-title" class="screen-title" style="margin-top: 12px; margin-bottom: 4px;">Scenario
-                        Title</h2>
-                    <span id="detail-subtitle" class="screen-subtitle">Instructions checklist</span>
-
-                    <div class="detail-illustration-container">
-                        <svg id="detail-svg-icon" viewBox="0 0 24 24">
-                            <path
-                                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm0-4h-2V7h2v6z" />
-                        </svg>
+                        <!-- Right Checklist Pane -->
+                        <div class="detail-checklist-pane">
+                            <ul class="action-checklist" id="detail-checklist"></ul>
+                            <div class="fixed-bottom-action">
+                                <button id="btn-complete-detail" class="btn-action" disabled>Complete Scenario</button>
+                            </div>
+                        </div>
                     </div>
+                </div>
+            </div>
 
-                    <ul class="action-checklist" id="detail-checklist"></ul>
+            </div> <!-- End of main-content -->
+
+            <!-- Right Sidebar Panel for Desktop -->
+            <div class="desktop-right-panel">
+                <!-- Emergency Dispatcher Card -->
+                <div class="desktop-panel-section">
+                    <h4 class="dialer-title">Dispatch Emergency Authorities</h4>
+                    <div class="dialer-grid">
+                        <a href="tel:0000000000" class="btn-dial btn-fire">
+                            <span class="dial-icon">🔥</span>
+                            <span class="dial-label">Fire Dept</span>
+                        </a>
+                        <a href="tel:0000000000" class="btn-dial btn-police">
+                            <span class="dial-icon">🚓</span>
+                            <span class="dial-label">Police</span>
+                        </a>
+                        <a href="tel:0000000000" class="btn-dial btn-medical">
+                            <span class="dial-icon">🚑</span>
+                            <span class="dial-label">Ambulance</span>
+                        </a>
+                    </div>
                 </div>
 
-                <div class="fixed-bottom-action">
-                    <button id="btn-complete-detail" class="btn-action" disabled>Complete Scenario</button>
+                <!-- Action History Log Section -->
+                <div class="desktop-panel-section">
+                    <h4 class="dialer-title">Action History Log</h4>
+                    <div class="history-timeline-container" id="dashboard-history-timeline">
+                        <div class="history-item"><span class="fallback-text">No completed history logs</span></div>
+                    </div>
                 </div>
             </div>
 
@@ -159,8 +232,9 @@
                         <h3 class="modal-title">Containment Complete</h3>
                     </div>
                     <div class="modal-body">
-                        <p>The emergency DIY containment steps are complete. However, professional inspection is highly recommended to prevent recurring hazards.</p>
-                        
+                        <p>The emergency DIY containment steps are complete. However, professional inspection is highly
+                            recommended to prevent recurring hazards.</p>
+
                         <div class="modal-actions-list">
                             <!-- Authorities Quick Dial -->
                             <div class="modal-action-section">

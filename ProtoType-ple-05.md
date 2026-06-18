@@ -88,3 +88,10 @@ The system color palette utilizes distinct ratios to balance visual clarity, con
 ### Safety Alert Accent (Stop Crimson)
 * **HEX / RGB:** `#C0392B` / `rgb(192, 57, 43)`
 * **Rationale:** Directs focal attention immediately to emergency dispatch numbers, warning structures, and life-critical triage views.
+
+---
+
+## 5. Simulated Actions & Interactions
+
+To ensure a fully functional client-side prototype without requiring external device or hardware integrations:
+* **Emergency Dispatch Authorities:** Clicking emergency dispatcher buttons (`.btn-dial` and `.btn-modal-dial`) intercepts execution via JavaScript. It triggers a browser notification warning (`alert()`) indicating a simulated call is occurring rather than triggering the device's native `tel:` dialer.

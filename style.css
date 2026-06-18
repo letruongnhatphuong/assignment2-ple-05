@@ -30,7 +30,7 @@
 }
 
 body {
-    background-color: #111827;
+    background-color: var(--color-canvas-bg);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -39,17 +39,12 @@ body {
     overflow: hidden;
 }
 
-/* CANVAS SIMULATOR FRAMES */
+/* WEB APPLICATION RESPONSIVE CONTAINERS */
 .phone-wrapper {
     position: relative;
-    width: 100%;
-    max-width: 420px;
-    height: 92vh;
-    max-height: 840px;
+    width: 100vw;
+    height: 100vh;
     background-color: var(--color-canvas-bg);
-    border: 10px solid var(--color-slate-dark);
-    border-radius: 40px;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -57,17 +52,7 @@ body {
 }
 
 .phone-status-bar {
-    height: 34px;
-    background-color: var(--color-slate-dark);
-    color: var(--color-canvas-bg);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 24px;
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-    z-index: 100;
+    display: none; /* Hide the fake simulator status bar by default */
 }
 
 .phone-status-icons {
@@ -1337,22 +1322,404 @@ h4 {
 }
 
 /* RESPONSIVE LAYOUT CONFIGURATIONS */
-@media (max-width: 500px) {
+
+/* Default app sidebar & right panel are hidden on mobile by default */
+.app-sidebar {
+    display: none;
+}
+
+.desktop-right-panel {
+    display: none;
+}
+
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+    padding: 16px; /* Safe padding for mobile screen edges */
+}
+
+/* Tablet & Desktop Viewports (min-width: 768px) */
+@media (min-width: 768px) {
     body {
-        background-color: var(--color-canvas-bg);
-        align-items: stretch;
+        background-color: #0f172a; /* Sleek slate 900 background */
     }
 
     .phone-wrapper {
         width: 100vw;
         height: 100vh;
-        max-height: 100vh;
-        max-width: 100%;
+        max-height: none;
+        max-width: none;
         border: none;
         border-radius: 0;
+        box-shadow: none;
     }
 
     .phone-status-bar {
-        padding: 0 16px;
+        display: none;
+    }
+
+    .app-container {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        height: 100%;
+        background-color: var(--color-canvas-bg);
+    }
+
+    /* Left Sidebar Styling */
+    .app-sidebar {
+        display: flex;
+        flex-direction: column;
+        width: 280px;
+        min-width: 280px;
+        background-color: #1e293b; /* Dark Slate background */
+        color: #e2e8f0;
+        padding: 32px 24px;
+        border-right: 1px solid rgba(255, 255, 255, 0.1);
+        justify-content: space-between;
+    }
+
+    .sidebar-brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 32px;
+    }
+
+    .sidebar-brand svg {
+        width: 32px;
+        height: 32px;
+    }
+
+    .sidebar-logo-text {
+        font-size: 16px;
+        font-weight: 800;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        color: #f8fafc;
+    }
+
+    .sidebar-nav {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        flex: 1;
+    }
+
+    .sidebar-tab-btn {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 14px 16px;
+        border-radius: 12px;
+        background: none;
+        border: none;
+        color: #94a3b8;
+        font-size: 13px;
+        font-weight: 700;
+        text-transform: uppercase;
+        cursor: pointer;
+        text-align: left;
+        width: 100%;
+        transition: all 0.2s ease;
+    }
+
+    .sidebar-tab-btn:hover {
+        background-color: rgba(255, 255, 255, 0.05);
+        color: #f8fafc;
+    }
+
+    .sidebar-tab-btn.tab-active {
+        background-color: var(--color-orange-primary);
+        color: #ffffff;
+        box-shadow: 0 4px 12px var(--color-orange-glow);
+    }
+
+    .sidebar-tab-btn[data-tab="emergency"].tab-active {
+        background-color: var(--color-crimson-alert);
+        box-shadow: 0 4px 12px var(--color-crimson-glow);
+    }
+
+    .sidebar-tab-icon {
+        font-size: 18px;
+    }
+
+    .sidebar-tab-label {
+        letter-spacing: 0.3px;
+    }
+
+    /* Footer Metrics Card in Sidebar */
+    .sidebar-footer-metrics {
+        margin-top: auto;
+        padding-top: 20px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .metrics-card {
+        background-color: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 12px;
+        padding: 16px;
+    }
+
+    .metrics-title-label {
+        font-size: 10px;
+        font-weight: 800;
+        color: #94a3b8;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        display: block;
+        margin-bottom: 6px;
+    }
+
+    #metrics-title {
+        font-size: 13px;
+        color: #f8fafc;
+        font-weight: 700;
+        margin-bottom: 10px;
+        text-transform: none;
+        letter-spacing: normal;
+    }
+
+    .sidebar-progress-bar {
+        width: 100%;
+        height: 8px;
+        background-color: rgba(255, 255, 255, 0.1);
+        border-radius: 4px;
+        overflow: hidden;
+    }
+
+    #progress-bar-fill {
+        height: 100%;
+        background-color: var(--color-orange-primary);
+        border-radius: 4px;
+        transition: width 0.3s ease;
+    }
+
+    /* Main Content Area adjustments: generous margins on tablet/desktop */
+    .main-content {
+        flex: 1;
+        height: 100%;
+        padding: 40px; /* Luxurious margin/padding from borders */
+        background-color: var(--color-canvas-bg);
+    }
+
+    .screen {
+        position: relative;
+        width: auto;
+        height: auto;
+        flex: 1;
+        opacity: 0;
+        display: none;
+        padding: 0;
+        background: none;
+        transform: none;
+        transition: none;
+    }
+
+    .screen.active {
+        opacity: 1;
+        display: flex;
+        pointer-events: auto;
+    }
+
+    /* Hide mobile header and bottom nav on desktop/tablet */
+    .app-header,
+    .bottom-nav {
+        display: none !important;
+    }
+
+    /* For scenario details view, we want a header only with the back button */
+    #screen-detail .app-header {
+        display: flex !important;
+        margin-bottom: 32px;
+        border-bottom: 1.5px solid var(--color-slate-border);
+    }
+
+    /* Grids to multi-column on tablet/desktop */
+    .dashboard-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 24px;
+    }
+
+    .contacts-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 20px;
+    }
+
+    /* Split Screen detail layout for tablet/desktop */
+    .detail-split-layout {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 48px;
+        align-items: flex-start;
+    }
+
+    .detail-info-pane {
+        flex: 1;
+        min-width: 250px;
+        position: sticky;
+        top: 0;
+    }
+
+    .detail-checklist-pane {
+        flex: 1.5;
+        min-width: 300px;
+        background-color: var(--color-canvas-card);
+        border: 2px solid var(--color-slate-border);
+        border-radius: 20px;
+        padding: 32px;
+        box-shadow: 0 6px 12px rgba(44, 62, 80, 0.05);
+    }
+
+    .detail-illustration-container {
+        height: 220px;
+        margin-bottom: 0px;
+    }
+
+    /* Custom positioning for detail complete action on desktop/tablet */
+    #screen-detail .fixed-bottom-action {
+        position: static;
+        padding: 24px 0 0 0;
+        border-top: 1.5px solid var(--color-slate-border);
+        background: none;
+        margin-top: 24px;
+    }
+
+    /* Custom scrollbars */
+    .view-content-wrapper, .scrollable-content {
+        scrollbar-width: thin;
+        scrollbar-color: var(--color-slate-border) transparent;
+        padding-right: 16px; /* Gutter to prevent scrollbar from overlapping cards/content */
+    }
+
+    .view-content-wrapper::-webkit-scrollbar,
+    .scrollable-content::-webkit-scrollbar {
+        width: 6px;
+        display: block;
+    }
+
+    .view-content-wrapper::-webkit-scrollbar-thumb,
+    .scrollable-content::-webkit-scrollbar-thumb {
+        background-color: var(--color-slate-border);
+        border-radius: 3px;
+    }
+}
+
+/* Tablet viewports (min-width: 768px and max-width: 1024px): Hide right sidebar to make space */
+@media (min-width: 768px) and (max-width: 1024px) {
+    .desktop-right-panel {
+        display: none !important;
+    }
+
+    /* Show the dispatcher inside EMD Emergency view on tablet view since right sidebar is hidden */
+    .mobile-dialer-only {
+        display: block !important;
+        margin-bottom: 24px;
+    }
+}
+
+/* Desktop Viewports (min-width: 1025px) */
+@media (min-width: 1025px) {
+    .desktop-right-panel {
+        display: flex;
+        flex-direction: column;
+        width: 320px;
+        min-width: 320px;
+        background-color: var(--color-canvas-bg);
+        border-left: 1.5px solid var(--color-slate-border);
+        padding: 40px 24px;
+        gap: 24px;
+        overflow-y: auto;
+    }
+
+    .desktop-panel-section {
+        background-color: var(--color-canvas-card);
+        border: 2px solid var(--color-slate-border);
+        border-radius: 16px;
+        padding: 20px;
+        box-shadow: 0 4px 6px rgba(44, 62, 80, 0.03);
+    }
+
+    .desktop-panel-section:first-of-type {
+        border-color: var(--color-crimson-alert);
+        background-color: var(--color-crimson-bg);
+        box-shadow: 0 4px 12px var(--color-crimson-glow);
+    }
+
+    .desktop-panel-section .dialer-title {
+        margin-bottom: 16px;
+        font-size: 11px;
+        color: var(--color-slate-dark);
+    }
+
+    .desktop-panel-section:first-of-type .dialer-title {
+        color: var(--color-crimson-alert);
+    }
+    
+    .desktop-right-panel::-webkit-scrollbar {
+        width: 6px;
+        display: block;
+    }
+    
+    .desktop-right-panel::-webkit-scrollbar-thumb {
+        background-color: var(--color-slate-border);
+        border-radius: 3px;
+    }
+
+    .history-timeline-container {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+    
+    .history-item {
+        background-color: var(--color-canvas-bg);
+        border: 1px solid var(--color-slate-border);
+        border-radius: 10px;
+        padding: 10px 14px;
+        font-size: 11px;
+        font-weight: 700;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .history-status-indicator {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+    
+    .history-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background-color: #27ae60;
+    }
+    
+    .fallback-text {
+        color: var(--color-slate-light);
+        font-style: italic;
+        width: 100%;
+        text-align: center;
+    }
+
+    /* Hide mobile-specific dialer inside Emergency view since persistent dialer is present on the right panel */
+    .mobile-dialer-only {
+        display: none !important;
+    }
+}
+
+/* Widescreen monitors */
+@media (min-width: 1200px) {
+    .dashboard-grid {
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
     }
 }

@@ -195,6 +195,58 @@ const scenariosData = [
             "Pull engine fluid dipstick completely out.",
             "Wipe metal stick clean with lint-free rag."
         ]
+    },
+    {
+        id: "s101",
+        category: "appliances",
+        title: "Troubleshoot Refrigerator Warmth",
+        instruction: "Diagnose and restore refrigerator cooling",
+        keywords: "fridge refrigerator warm cooling food spoil temperature thermistor condenser coils",
+        steps: [
+            "Clean the condenser coils located at the back or bottom of the unit.",
+            "Ensure the refrigerator door seals are clean and closing tightly.",
+            "Verify that the thermostat dial is set to the recommended temperature level.",
+            "Clear any food items blocking the internal cold air vents."
+        ]
+    },
+    {
+        id: "s102",
+        category: "appliances",
+        title: "Clear Dishwasher Standing Water",
+        instruction: "Unclog dishwasher drainage system",
+        keywords: "dishwasher clog water standing drain pump filter food disposal waste",
+        steps: [
+            "Remove the bottom rack and unscrew the cylindrical mesh filter.",
+            "Rinse the filter thoroughly under hot running water to clear debris.",
+            "Check the drain pump impeller for any trapped food particles.",
+            "Verify the drain hose is not kinked or blocked near the sink connection."
+        ]
+    },
+    {
+        id: "s103",
+        category: "appliances",
+        title: "Reset Unresponsive Oven",
+        instruction: "Restore electrical power to digital range",
+        keywords: "oven stove range unresponsive screen heating element reset power",
+        steps: [
+            "Turn off the stove circuit breaker at the main electrical panel.",
+            "Wait for 60 seconds to allow the control board capacitors to discharge.",
+            "Flip the circuit breaker back on to reboot the appliance clock.",
+            "Test heating elements by setting oven to bake at 350 degrees."
+        ]
+    },
+    {
+        id: "s104",
+        category: "appliances",
+        title: "Clean Washing Machine Filter",
+        instruction: "Clear coin trap to resolve wash cycle errors",
+        keywords: "washer washing machine filter drain pump error code coin trap water smell",
+        steps: [
+            "Open the small access door at the bottom front of the machine.",
+            "Place a shallow tray and towel down to catch residual drainage water.",
+            "Unscrew the pump filter cap slowly by turning it counterclockwise.",
+            "Extract any coins, lint, or small debris from the filter chamber."
+        ]
     }
 ];
 
@@ -258,6 +310,15 @@ function setupEventListeners() {
     document.getElementById('tab-emergency').addEventListener('click', () => switchDashboardTab('emergency'));
     document.getElementById('tab-lookup').addEventListener('click', () => switchDashboardTab('lookup'));
 
+    // Sidebar tab buttons click binding
+    document.querySelectorAll('.sidebar-tab-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const tabName = btn.getAttribute('data-tab');
+            switchDashboardTab(tabName);
+            switchScreen('screen-dashboard');
+        });
+    });
+
     document.getElementById('detail-back-button').addEventListener('click', () => switchScreen('screen-dashboard'));
 
     const modalCloseBtn = document.getElementById('btn-modal-close');
@@ -278,6 +339,16 @@ function setupEventListeners() {
             }
         });
     }
+
+    // Intercept emergency dial actions to simulate calling instead of launching the dialer
+    document.querySelectorAll('.btn-dial, .btn-modal-dial').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const labelSpan = btn.querySelector('.dial-label');
+            const authority = labelSpan ? labelSpan.textContent : btn.textContent.trim();
+            alert(`Calling ${authority}...\n\n(This is a simulated call for prototype demonstration purposes.)`);
+        });
+    });
 }
 
 function updateSystemClock() {
@@ -308,28 +379,41 @@ function switchScreen(screenId) {
 }
 
 function switchDashboardTab(tabName) {
-    document.querySelectorAll('.nav-tab-btn').forEach(btn => btn.classList.remove('tab-active'));
-    document.getElementById('tab-emergency').classList.remove('tab-active');
+    document.querySelectorAll('.nav-tab-btn, .sidebar-tab-btn').forEach(btn => {
+        if (btn.getAttribute('data-tab') === tabName) {
+            btn.classList.add('tab-active');
+        } else {
+            btn.classList.remove('tab-active');
+        }
+    });
+    // Fallback for special circular tab button which doesn't use data-tab on some versions
+    const tabEmergency = document.getElementById('tab-emergency');
+    if (tabEmergency) {
+        if (tabName === 'emergency') {
+            tabEmergency.classList.add('tab-active');
+        } else {
+            tabEmergency.classList.remove('tab-active');
+        }
+    }
+
     document.querySelectorAll('.dashboard-view').forEach(view => view.classList.remove('view-active'));
 
-    const logo = document.querySelector('.app-logo-icon');
+    const logos = document.querySelectorAll('.app-logo-icon');
     const appTitle = document.getElementById('main-app-title');
 
     if (tabName === 'contacts') {
-        document.getElementById('tab-contacts').classList.add('tab-active');
         document.getElementById('view-contacts').classList.add('view-active');
-        logo.classList.remove('emergency-tint');
-        appTitle.textContent = "EMD Directory";
+        logos.forEach(logo => logo.classList.remove('emergency-tint'));
+        if (appTitle) appTitle.textContent = "EMD Directory";
 
         document.querySelectorAll('#contacts-results-list .contact-category-accordion').forEach(acc => {
             const cat = acc.id.split('-').pop();
             toggleContactAccordion(cat, false);
         });
     } else if (tabName === 'emergency') {
-        document.getElementById('tab-emergency').classList.add('tab-active');
         document.getElementById('view-emergency').classList.add('view-active');
-        logo.classList.add('emergency-tint');
-        appTitle.textContent = "EMD Emergency Hub";
+        logos.forEach(logo => logo.classList.add('emergency-tint'));
+        if (appTitle) appTitle.textContent = "EMD Emergency Hub";
 
         const emgSearchInput = document.getElementById('emergency-search');
         if (emgSearchInput) {
@@ -337,10 +421,9 @@ function switchDashboardTab(tabName) {
             filterEmergencySearch();
         }
     } else if (tabName === 'lookup') {
-        document.getElementById('tab-lookup').classList.add('tab-active');
         document.getElementById('view-lookup').classList.add('view-active');
-        logo.classList.remove('emergency-tint');
-        appTitle.textContent = "EMD Troubleshooting";
+        logos.forEach(logo => logo.classList.remove('emergency-tint'));
+        if (appTitle) appTitle.textContent = "EMD Troubleshooting";
 
         document.querySelectorAll('#lookup-results-grid .category-accordion').forEach(acc => {
             acc.style.display = 'block';
