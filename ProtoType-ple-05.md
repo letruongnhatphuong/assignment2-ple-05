@@ -28,7 +28,7 @@ Upon extraction of the submission zip file, the structure is organized cleanly:
 The user interface uses a responsive mobile safe-area viewport template (`max-width: 420px`) that centers seamlessly on desktop web browsers. View switching is controlled by a client-side state engine linked directly to the persistent **Bottom Tab Navigation Bar** managing three views:
 1. **Contacts Tab (Left):** Renders the `#view-contacts` directory page mapping out trade professionals and emergency technician companies in collapsible accordion blocks.
 2. **EMERGENCY Tab (Center):** High-alert prominent circular button. Instantly routes users to the Crisis Containment interface containing authority direct-dials and immediate safety cards.
-3. **Lookup Tab (Right):** Renders the `#view-lookup` directory screen using collapsible folders to slice the embedded 100-scenario troubleshooting database in real time.
+3. **Lookup Tab (Right):** Renders the `#view-lookup` directory screen using collapsible folders to slice the embedded 50-scenario troubleshooting database in real time.
 
 ---
 
@@ -54,7 +54,7 @@ The platform handles real-time verification processing loops. Three core interac
     2. **Decline** applying ice, butter, or ointments to the raw wound.
     3. **Wrap** the cooled area loosely with clean, non-stick plastic wrap.
 * **LocalStorage Tracking Key:** Writes metadata state `{completed: true, timestamp: EpochMs}` to key `s81` in `EMD_Prototype_State`.
-* **Expected Outcome:** Completing the checklist locks in state persistence and steps your global dashboard tracker forward from `0/100` to `1/100`.
+* **Expected Outcome:** Completing the checklist locks in state persistence and steps your global dashboard tracker forward from `0/50` to `1/50`.
 
 ### Scenario 3: Halt Acute Panic Attack (Category: Home Safety / Mental Health Grounding)
 * **Operational Goal:** De-escalate physical hyperventilation loops through box-breathing templates.

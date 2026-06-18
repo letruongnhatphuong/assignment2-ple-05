@@ -250,18 +250,24 @@ const scenariosData = [
     }
 ];
 
-for (let i = 1; i <= 85; i++) {
-    if (!scenariosData.find(s => s.id === `gen-${i}`)) {
+const categoryList = ['plumbing', 'electrical', 'appliances', 'automotive', 'safety'];
+let genCounter = 1;
+
+categoryList.forEach(cat => {
+    const currentCount = scenariosData.filter(s => s.category === cat).length;
+    const needed = 10 - currentCount;
+    for (let i = 0; i < needed; i++) {
         scenariosData.push({
-            id: `gen-${i}`,
-            category: i % 2 === 0 ? "appliances" : "safety",
-            title: `System Check Task ${i}`,
+            id: `gen-${genCounter}`,
+            category: cat,
+            title: `${cat.charAt(0).toUpperCase() + cat.slice(1)} Check Task ${genCounter}`,
             instruction: `Perform routine modular item execution procedure`,
-            keywords: "generic routine maintenance hardware safety check home template",
+            keywords: `generic routine maintenance hardware safety check home template ${cat}`,
             steps: ["Deactivate system panel connectivity.", "Inspect hardware components structure.", "Verify stable indicator metrics profile."]
         });
+        genCounter++;
     }
-}
+});
 
 const contactsData = [
     { id: "c1", category: "plumbing", type: "Specialist", name: "Alex Mercer", rating: "4.9", reviews: "142", status: "Available", phone: "1-800-555-0101" },
@@ -938,12 +944,12 @@ function renderStateUI() {
 
     const metricsTitle = document.getElementById('metrics-title');
     if (metricsTitle) {
-        metricsTitle.textContent = `Completed Guides: ${completedCount} / 100`;
+        metricsTitle.textContent = `Completed Guides: ${completedCount} / ${scenariosData.length}`;
     }
 
     const progressBarFill = document.getElementById('progress-bar-fill');
     if (progressBarFill) {
-        progressBarFill.style.width = `${(completedCount / 100) * 100}%`;
+        progressBarFill.style.width = `${(completedCount / scenariosData.length) * 100}%`;
     }
 
     const categoriesList = ['plumbing', 'electrical', 'appliances', 'automotive', 'safety'];
