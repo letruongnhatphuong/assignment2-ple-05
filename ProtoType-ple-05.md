@@ -95,3 +95,4 @@ The system color palette utilizes distinct ratios to balance visual clarity, con
 
 To ensure a fully functional client-side prototype without requiring external device or hardware integrations:
 * **Emergency Dispatch Authorities:** Clicking emergency dispatcher buttons (`.btn-dial` and `.btn-modal-dial`) intercepts execution via JavaScript. It triggers a browser notification warning (`alert()`) indicating a simulated call is occurring rather than triggering the device's native `tel:` dialer.
+* **Search Empty State Handling:** Entering a search query that does not match any embedded database scenarios or emergency items triggers a simulated "No Results Found" layout card. The UI dynamically interpolates the search query, hides the default result grid, and provides action buttons to clear the search query or switch view focus to the Specialist Directory tab.
