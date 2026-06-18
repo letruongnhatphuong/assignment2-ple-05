@@ -195,7 +195,7 @@ h4 {
 
 .dialer-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 10px;
 }
 
@@ -213,6 +213,7 @@ h4 {
     letter-spacing: -0.2px;
     transition: transform 0.15s ease, box-shadow 0.15s ease;
     color: #FFFFFF;
+    aspect-ratio: 1;
 }
 
 .btn-dial:active {
