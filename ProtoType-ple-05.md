@@ -12,6 +12,14 @@ The EMD prototype is an offline-capable, client-side application. It compiles 10
 * **GitHub Repository URL:** `https://github.com/letruongnhatphuong/assignment2-ple-05`
 * **Live GitHub Pages URL:** `https://letruongnhatphuong.github.io/assignment2-ple-05/`
 
+### Responsive Framework Rationale
+In accordance with the project guidelines stating that the choice of responsive method is open-ended (*"how you do that is up to you"*), the prototype is built using raw **CSS Grid, Flexbox, and CSS Media Queries** rather than Bootstrap or Skeleton CSS.
+
+This deliberate design choice provides several key benefits:
+1. **Premium Aesthetic Control:** Allows precise visual styling of checkboxes, cards, and custom transitions to implement the strict 60-30-10 color rule without style conflicts from Bootstrap layout defaults.
+2. **Offline Resilience:** Eliminates external CDN imports and heavy package dependencies, ensuring the evaluator can extract the zip file and run the application instantly on a standard PC without an internet connection.
+3. **Device Adaptability:** Dynamically shifts alignment profiles across **Laptop** (3-column layout with persistent right panel), **Tablet** (compact accordions), and **Phone** (responsive bottom tab layout) viewports.
+
 ### Directory Packaging (`Assignment2-ple-05.zip`)
 Upon extraction of the submission zip file, the structure is organized cleanly:
 * `index.html` — The structural layout shell defining views and navigation nodes.
