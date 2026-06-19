@@ -51,8 +51,9 @@ The platform handles real-time verification processing loops. Three core interac
 * **Navigation Path:** Lookup Tab $\rightarrow$ Open "Appliances" folder $\rightarrow$ Select "Troubleshoot Refrigerator Warmth" $\rightarrow$ Access DIY Checklist. If unresolved $\rightarrow$ Navigate to Contacts Tab $\rightarrow$ Open "Appliances" category $\rightarrow$ Select a specialist.
 * **Direct Action Steps (Commanding Verbs):**
     1. **Clean** the condenser coils located at the back or bottom of the unit.
-    2. **Verify** that the refrigerator door seals are clean and closing tightly.
-    3. **Clear** food items blocking the internal cold air vents.
+    2. **Ensure** the refrigerator door seals are clean and closing tightly.
+    3. **Verify** that the thermostat dial is set to the recommended temperature level.
+    4. **Clear** any food items blocking the internal cold air vents.
 * **LocalStorage Tracking Key:** Writes metadata state `{completed: true, timestamp: EpochMs}` to key `s101` in `EMD_Prototype_State`.
 * **Expected Outcome:** Completing the checklist locks in state persistence and increments the global dashboard tracker from `0/50` to `1/50`. If the refrigerator remains warm, the user switches tabs to Contacts to find a professional like "Smart Fix Appliance Pros".
 
