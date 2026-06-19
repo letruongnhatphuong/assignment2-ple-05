@@ -59,14 +59,14 @@ The platform handles real-time verification processing loops. Three core interac
 
 ### Scenario 3: Halt Acute Panic Attack (Category: Home Safety / Mental Health Grounding)
 * **Operational Goal:** De-escalate physical hyperventilation loops through box-breathing templates.
-* **Navigation Path:** Lookup Tab $\rightarrow$ Open Safety folder $\rightarrow$ Select "Halt Acute Panic Attack".
+* **Navigation Path:** Emergency Tab or Lookup Tab $\rightarrow$ Open Safety folder $\rightarrow$ Select "Halt Acute Panic Attack".
 * **Direct Action Steps (Commanding Verbs):**
     1. **Inhale** deeply through your nose for exactly 4 seconds.
     2. **Hold** your breath at the top for 4 seconds.
     3. **Exhale** completely out through your mouth for 4 seconds.
     4. **Hold** empty for 4 seconds, then repeat the box cycle.
 * **LocalStorage Tracking Key:** Writes metadata state `{completed: true, timestamp: EpochMs}` to key `s84` in `EMD_Prototype_State`.
-* **Expected Outcome:** Toggling checks unlocks the primary action submit button, logs metrics data, and saves history logs.
+* **Expected Outcome:** Completing the checklist locks in state persistence, increments the dashboard progress, and opens the emergency completion modal allowing the user to make a simulated call to the Ambulance.
 
 ---
 
