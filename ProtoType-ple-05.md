@@ -46,15 +46,15 @@ The platform handles real-time verification processing loops. Three core interac
 * **LocalStorage Tracking Key:** Writes metadata state `{completed: true, timestamp: EpochMs}` to key `s1` in `EMD_Prototype_State`.
 * **Expected Outcome:** Completing the scenario updates the card badge to a green "Done" tag, increments metrics, and fires a post-emergency notification modal with a trade directory link.
 
-### Scenario 2: Treat Kitchen Burn (Category: Home Safety / First Aid)
-* **Operational Goal:** Stabilize acute thermal skin damage instantly using safe first-aid practices.
-* **Navigation Path:** Emergency Tab $\rightarrow$ Select "Treat Kitchen Burn" Card $\rightarrow$ Access Triage Checklist.
+### Scenario 2: Troubleshoot Refrigerator Warmth (Category: Appliances)
+* **Operational Goal:** Diagnose residential cooling failure via DIY troubleshooting, then select a specialist technician if professional repair is required.
+* **Navigation Path:** Lookup Tab $\rightarrow$ Open "Appliances" folder $\rightarrow$ Select "Troubleshoot Refrigerator Warmth" $\rightarrow$ Access DIY Checklist. If unresolved $\rightarrow$ Navigate to Contacts Tab $\rightarrow$ Open "Appliances" category $\rightarrow$ Select a specialist.
 * **Direct Action Steps (Commanding Verbs):**
-    1. **Run** cool, lukewarm tap water over the burn for 20 minutes continuously.
-    2. **Decline** applying ice, butter, or ointments to the raw wound.
-    3. **Wrap** the cooled area loosely with clean, non-stick plastic wrap.
-* **LocalStorage Tracking Key:** Writes metadata state `{completed: true, timestamp: EpochMs}` to key `s81` in `EMD_Prototype_State`.
-* **Expected Outcome:** Completing the checklist locks in state persistence and steps your global dashboard tracker forward from `0/50` to `1/50`.
+    1. **Clean** the condenser coils located at the back or bottom of the unit.
+    2. **Verify** that the refrigerator door seals are clean and closing tightly.
+    3. **Clear** food items blocking the internal cold air vents.
+* **LocalStorage Tracking Key:** Writes metadata state `{completed: true, timestamp: EpochMs}` to key `s101` in `EMD_Prototype_State`.
+* **Expected Outcome:** Completing the checklist locks in state persistence and increments the global dashboard tracker from `0/50` to `1/50`. If the refrigerator remains warm, the user switches tabs to Contacts to find a professional like "Smart Fix Appliance Pros".
 
 ### Scenario 3: Halt Acute Panic Attack (Category: Home Safety / Mental Health Grounding)
 * **Operational Goal:** De-escalate physical hyperventilation loops through box-breathing templates.
