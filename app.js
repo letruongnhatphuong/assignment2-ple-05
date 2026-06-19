@@ -914,12 +914,33 @@ function completeActiveScenario(id) {
     persistState();
     switchScreen('screen-dashboard');
 
-    if (item && item.isEmergency) {
+    if (item) {
         const modal = document.getElementById('emergency-complete-modal');
         if (modal) {
+            const modalIcon = modal.querySelector('.modal-icon');
+            const modalTitle = modal.querySelector('.modal-title');
+            const modalBodyText = modal.querySelector('.modal-body p');
+            const authoritiesSection = document.getElementById('modal-authorities-section');
             const goContactsBtn = document.getElementById('btn-modal-go-contacts');
+
             if (goContactsBtn) {
                 goContactsBtn.setAttribute('data-category', item.category || '');
+            }
+
+            if (item.isEmergency) {
+                if (modalIcon) modalIcon.textContent = '🚨';
+                if (modalTitle) modalTitle.textContent = 'Containment Completed';
+                if (modalBodyText) {
+                    modalBodyText.textContent = 'The emergency DIY containment steps are completed. However, professional inspection is highly recommended to prevent recurring hazards.';
+                }
+                if (authoritiesSection) authoritiesSection.style.display = '';
+            } else {
+                if (modalIcon) modalIcon.textContent = '🛠️';
+                if (modalTitle) modalTitle.textContent = 'Troubleshooting Completed';
+                if (modalBodyText) {
+                    modalBodyText.textContent = 'The troubleshooting steps are completed. If the issue persists, we recommend contacting a verified specialist for professional repair.';
+                }
+                if (authoritiesSection) authoritiesSection.style.display = 'none';
             }
             modal.style.display = 'flex';
         }
