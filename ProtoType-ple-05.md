@@ -1,107 +1,241 @@
-# Companion Design Document: EMD Mobile Prototype (ple-05)
+# GitHub Repository
 
-This document provides the deployment specifications, scenario design matrices, Git workflow details, and 60-30-10 color rationales for the **"Even My Dad Doesn't Know About This" (EMD)** mobile troubleshooting web application.
+https://github.com/letruongnhatphuong/assignment2-ple-05
 
----
+# Live Prototype
 
-## 1. Deployment Overview
-
-The EMD prototype is an offline-capable, client-side application. It compiles 100% locally and contains zero external dependencies, CDN assets, or server-side requirements.
-
-### Live Production Architecture
-* **GitHub Repository URL:** `https://github.com/letruongnhatphuong/assignment2-ple-05`
-* **Live GitHub Pages URL:** `https://letruongnhatphuong.github.io/assignment2-ple-05/`
-
-### Responsive Framework Rationale
-In accordance with the project guidelines stating that the choice of responsive method is open-ended (*"how you do that is up to you"*), the prototype is built using raw **CSS Grid, Flexbox, and CSS Media Queries** rather than Bootstrap or Skeleton CSS.
-
-This deliberate design choice provides several key benefits:
-1. **Premium Aesthetic Control:** Allows precise visual styling of checkboxes, cards, and custom transitions to implement the strict 60-30-10 color rule without style conflicts from Bootstrap layout defaults.
-2. **Offline Resilience:** Eliminates external CDN imports and heavy package dependencies, ensuring the evaluator can extract the zip file and run the application instantly on a standard PC without an internet connection.
-3. **Device Adaptability:** Dynamically shifts alignment profiles across **Laptop** (3-column layout with persistent right panel), **Tablet** (compact accordions), and **Phone** (responsive bottom tab layout) viewports.
-
-### Directory Packaging (`Assignment2-ple-05.zip`)
-Upon extraction of the submission zip file, the structure is organized cleanly:
-* `index.html` — The structural layout shell defining views and navigation nodes.
-* `style.css` — The presentation layer establishing fluid wrappers and design rules.
-* `app.js` — The behavioral engine controlling state serialization and local storage mechanics.
-* `ProtoType-ple-05.md` — This companion documentation manual.
-* `Lofi/` — Directory containing 3 structural skeleton wireframe blueprints.
-* `Hifi/` — Directory containing 3 high-fidelity visual interface screen designs.
+https://letruongnhatphuong.github.io/assignment2-ple-05/
 
 ---
 
-## 2. Interface Navigation & Routing
+# Navigation Structure
 
-The user interface uses a responsive mobile safe-area viewport template (`max-width: 420px`) that centers seamlessly on desktop web browsers. View switching is controlled by a client-side state engine linked directly to the persistent **Bottom Tab Navigation Bar** managing three views:
-1. **Contacts Tab (Left):** Renders the `#view-contacts` directory page mapping out trade professionals and emergency technician companies in collapsible accordion blocks.
-2. **EMERGENCY Tab (Center):** High-alert prominent circular button. Instantly routes users to the Crisis Containment interface containing authority direct-dials and immediate safety cards.
-3. **Lookup Tab (Right):** Renders the `#view-lookup` directory screen using collapsible folders to slice the embedded 50-scenario troubleshooting database in real time.
+The application contains three primary navigation sections that are accessible through the bottom navigation bar on mobile devices and the sidebar on larger screens.
 
----
+## Contacts
 
-## 3. Scenario Design Matrices
+Displays verified specialists and service companies grouped by category, allowing users to quickly locate professional assistance.
 
-The platform handles real-time verification processing loops. Three core interaction paths are demonstrated through local storage mutations:
+## Emergency
 
-### Scenario 1: Isolate Broken Pipe (Category: Plumbing)
-* **Operational Goal:** Stop active residential water damage before systemic structural flooding occurs.
-* **Navigation Path:** Emergency Tab $\rightarrow$ Click "Isolate Broken Pipe" Card $\rightarrow$ Access Deep Action Checklist.
-* **Direct Action Steps (Commanding Verbs):**
-    1. **Locate** main water service entry line immediately.
-    2. **Rotate** main brass handle valve clockwise fully.
-    3. **Open** lowest elevation faucet to bleed line pressure.
-* **LocalStorage Tracking Key:** Writes metadata state `{completed: true, timestamp: EpochMs}` to key `s1` in `EMD_Prototype_State`.
-* **Expected Outcome:** Completing the scenario updates the card badge to a green "Done" tag, increments metrics, and fires a post-emergency notification modal with a trade directory link.
+Provides immediate emergency guidance together with emergency contact shortcuts for situations requiring urgent action.
 
-### Scenario 2: Troubleshoot Refrigerator Warmth (Category: Appliances)
-* **Operational Goal:** Diagnose residential cooling failure via DIY troubleshooting, then select a specialist technician if professional repair is required.
-* **Navigation Path:** Lookup Tab $\rightarrow$ Open "Appliances" folder $\rightarrow$ Select "Troubleshoot Refrigerator Warmth" $\rightarrow$ Access DIY Checklist. If unresolved $\rightarrow$ Navigate to Contacts Tab $\rightarrow$ Open "Appliances" category $\rightarrow$ Select a specialist.
-* **Direct Action Steps (Commanding Verbs):**
-    1. **Clean** the condenser coils located at the back or bottom of the unit.
-    2. **Ensure** the refrigerator door seals are clean and closing tightly.
-    3. **Verify** that the thermostat dial is set to the recommended temperature level.
-    4. **Clear** any food items blocking the internal cold air vents.
-* **LocalStorage Tracking Key:** Writes metadata state `{completed: true, timestamp: EpochMs}` to key `s101` in `EMD_Prototype_State`.
-* **Expected Outcome:** Completing the checklist locks in state persistence and increments the global dashboard tracker from `0/50` to `1/50`. If the refrigerator remains warm, the user switches tabs to Contacts to find a professional like "Smart Fix Appliance Pros".
+## Lookup
 
-### Scenario 3: Halt Acute Panic Attack (Category: Home Safety / Mental Health Grounding)
-* **Operational Goal:** De-escalate physical hyperventilation loops through box-breathing templates.
-* **Navigation Path:** Emergency Tab or Lookup Tab $\rightarrow$ Open Safety folder $\rightarrow$ Select "Halt Acute Panic Attack".
-* **Direct Action Steps (Commanding Verbs):**
-    1. **Inhale** deeply through your nose for exactly 4 seconds.
-    2. **Hold** your breath at the top for 4 seconds.
-    3. **Exhale** completely out through your mouth for 4 seconds.
-    4. **Hold** empty for 4 seconds, then repeat the box cycle.
-* **LocalStorage Tracking Key:** Writes metadata state `{completed: true, timestamp: EpochMs}` to key `s84` in `EMD_Prototype_State`.
-* **Expected Outcome:** Completing the checklist locks in state persistence, increments the dashboard progress, and opens the emergency completion modal allowing the user to make a simulated call to the Ambulance.
+Contains categorized troubleshooting guides that users can browse or search to locate step-by-step solutions for common household problems.
 
 ---
 
-## 4. Visual Color System (60-30-10 Rule)
+# Responsive Design
 
-The system color palette utilizes distinct ratios to balance visual clarity, content accessibility, and interface affordances under stressful user conditions.
+The prototype was developed using **HTML5, CSS3, JavaScript, CSS Grid, Flexbox, and Media Queries** without relying on external frameworks such as Bootstrap.
 
-### 60% Layout Canvas Backdrop (Soft Alabaster)
-* **HEX / RGB:** `#F8F9FA` / `rgb(248, 249, 250)`
-* **Rationale:** Acts as the primary background text canvas. Reduces blinding display glare on mobile screens during unexpected situational panics.
+This approach was chosen because it:
 
-### 30% Structural Bounds & Typographic Contrast (Deep Slate Gray)
-* **HEX / RGB:** `#2C3E50` / `rgb(44, 62, 80)`
-* **Rationale:** Forms the persistent navigation layouts, structural shell edges, and titles. Secures deep accessible text color ratios conforming strictly to WCAG AA parameters.
-
-### 10% Interactive Call-to-Action Highlights (Safety Orange)
-* **HEX / RGB:** `#E67E22` / `rgb(230, 126, 34)`
-* **Rationale:** Dictates the visual styling of custom checkbox components, active screen menu indicators, and actionable button elements to minimize input errors.
-
-### Safety Alert Accent (Stop Crimson)
-* **HEX / RGB:** `#C0392B` / `rgb(192, 57, 43)`
-* **Rationale:** Directs focal attention immediately to emergency dispatch numbers, warning structures, and life-critical triage views.
+- Provides complete control over the interface layout.
+- Keeps the application lightweight.
+- Allows the application to function completely offline.
+- Adapts automatically across desktop, tablet, and mobile devices.
 
 ---
 
-## 5. Simulated Actions & Interactions
+# Local Storage
 
-To ensure a fully functional client-side prototype without requiring external device or hardware integrations:
-* **Emergency Dispatch Authorities:** Clicking emergency dispatcher buttons (`.btn-dial` and `.btn-modal-dial`) intercepts execution via JavaScript. It triggers a browser notification warning (`alert()`) indicating a simulated call is occurring rather than triggering the device's native `tel:` dialer.
-* **Search Empty State Handling:** Entering a search query that does not match any embedded database scenarios or emergency items triggers a simulated "No Results Found" layout card. The UI dynamically interpolates the search query, hides the default result grid, and provides action buttons to clear the search query or switch view focus to the Specialist Directory tab.
+After all checklist items are completed, the application stores the completed scenario information and timestamp in the browser using the following key:
+
+```text
+EMD_Prototype_State
+```
+
+This allows completed scenarios to remain completed even after refreshing the page.
+
+---
+
+# Implemented Scenarios
+
+## Scenario 1 – Isolate Broken Pipe
+
+### Navigation Path
+
+Emergency Hub → Isolate Broken Pipe → Complete Checklist → Completion Screen
+
+### Purpose
+
+This scenario helps users quickly stop water damage by following simple emergency plumbing procedures before contacting a professional if necessary.
+
+---
+
+## Scenario 2 – Troubleshoot Refrigerator Warmth
+
+### Navigation Path
+
+Lookup → Appliances → Troubleshoot Refrigerator Warmth → Complete Checklist → Contacts Directory (if unresolved)
+
+### Purpose
+
+This scenario guides users through common refrigerator troubleshooting steps. If the issue cannot be resolved, users can continue to contact a qualified appliance technician.
+
+---
+
+## Scenario 3 – Halt Acute Panic Attack
+
+### Navigation Path
+
+Emergency Hub or Lookup → Safety → Halt Acute Panic Attack → Complete Exercise → Completion Screen
+
+### Purpose
+
+This scenario guides users through a box-breathing exercise to help reduce panic symptoms and encourage calm, controlled breathing during stressful situations. Users have the option to contact emergency authorities or specialists after the emergency is under control.
+
+---
+
+## Color System
+
+The EMD interface uses a **Complementary Color Scheme**.
+
+The prototype uses a Complementary Color Scheme.
+
+The application primarily combines cool blue-gray colours with warm orange accents. Red is reserved exclusively for emergency-related functions.
+
+---
+
+## Primary Color
+
+### Deep Slate Gray
+
+**HEX**
+
+```text
+#2C3E50
+```
+
+**RGB**
+
+```text
+rgb(44, 62, 80)
+```
+
+### Used For
+
+- Navigation bar
+- Sidebar
+- Headers
+- Text
+- Borders
+
+### Rationale
+
+Deep Slate Gray provides strong readability against the light background while creating a professional and trustworthy appearance. It serves as the primary structural colour throughout the interface.
+
+---
+
+## Accent Color
+
+### Safety Orange
+
+**HEX**
+
+```text
+#E67E22
+```
+
+**RGB**
+
+```text
+rgb(230, 126, 34)
+```
+
+### Used For
+
+- Buttons
+- Active navigation
+- Progress indicators
+- Search focus
+- Interactive controls
+
+### Rationale
+
+Safety Orange complements the blue-gray interface by providing strong contrast. It naturally attracts user attention toward interactive components without overwhelming the overall interface.
+
+---
+
+## Neutral Background
+
+### Soft Alabaster
+
+**HEX**
+
+```text
+#F8F9FA
+```
+
+**RGB**
+
+```text
+rgb(248, 249, 250)
+```
+
+### Used For
+
+- Main background
+- Content area
+- Cards
+
+### Rationale
+
+The light neutral background improves readability, reduces visual fatigue, and allows important interface elements to stand out more clearly.
+
+---
+
+## Emergency Color
+
+### Stop Crimson
+
+**HEX**
+
+```text
+#C0392B
+```
+
+**RGB**
+
+```text
+rgb(192, 57, 43)
+```
+
+### Used For
+
+- Emergency Hub
+- Emergency buttons
+- Warning messages
+- Critical alerts
+
+### Rationale
+
+Red is reserved only for emergency situations. Restricting this colour to critical actions allows users to immediately recognize warnings and emergency-related functions.
+
+---
+
+# Features
+
+The prototype includes the following features:
+
+- Responsive layouts for mobile, tablet, and desktop devices.
+- Search functionality for Emergency and Lookup scenarios.
+- Browser Local Storage for saving completed scenarios.
+- Specialist directory organized by category.
+- Emergency quick-access contacts.
+- Progress tracking for completed troubleshooting guides.
+- Interactive checklists with completion tracking.
+
+---
+
+# Technologies Used
+
+- HTML5
+- CSS3
+- JavaScript (ES6)
+- CSS Grid
+- Flexbox
+- CSS Media Queries
+- Browser Local Storage
